@@ -1,0 +1,137 @@
+master:
+   - name: mst_ledger
+      collection: Ledger
+      nature: Primary
+      fields:
+        - name: guid
+          field: Guid
+          type: text
+        - name: alterid
+          field: AlterId
+          type: number
+        - name: name
+          field: Name
+          type: text
+        - name: parent
+          field: if $$IsEqual:$Parent:$$SysName:Primary then "" else $Parent
+          type: text
+        - name: _parent
+          field: if $$IsEqual:$Parent:$$SysName:Primary then "" else $Guid:Group:$Parent
+          type: text
+        - name: alias
+          field: OnlyAlias
+          type: text
+        - name: is_revenue
+          field: IsRevenue
+          type: logical
+        - name: is_deemedpositive
+          field: IsDeemedPositive
+          type: logical
+        - name: opening_balance
+          field: OpeningBalance
+          type: amount
+        - name: description
+          field: Description
+          type: text
+        - name: mailing_name
+          field: MailingName
+          type: text
+        - name: mailing_address
+          field: if $$IsEmpty:$Address then "" else $$FullList:Address:$Address
+          type: text
+        - name: mailing_state
+          field: LedStateName
+          type: text
+        - name: mailing_country
+          field: CountryName
+          type: text
+        - name: mailing_pincode
+          field: PinCode
+          type: text
+        - name: email
+          field: Email
+          type: text
+        - name: it_pan
+          field: IncomeTaxNumber
+          type: text
+        - name: gstn
+          field: Partygstin
+          type: text
+        - name: gst_registration_type
+          field: Gstregistrationtype
+          type: text
+        - name: gst_supply_type
+          field: Gsttypeofsupply
+          type: text
+        - name: gst_duty_head
+          field: Gstdutyhead
+          type: text
+        - name: tax_rate
+          field: RateOfTaxCalculation
+          type: number
+        - name: bank_account_holder
+          field: Bankaccholdername
+          type: text
+        - name: bank_account_number
+          field: BankDetails
+          type: text
+        - name: bank_ifsc
+          field: Ifscode
+          type: text
+        - name: bank_swift
+          field: Swiftcode
+          type: text
+        - name: bank_name
+          field: Bankingconfigbank
+          type: text
+        - name: bank_branch
+          field: BankBranchname
+          type: text
+  - name: mst_stock_item
+    collection: StockItem
+    nature: Primary
+    fetch:
+        - GstDetails
+    fields:
+        - name: guid
+          field: Guid
+          type: text
+        - name: alterid
+          field: AlterId
+          type: number
+        - name: name
+          field: Name
+          type: text
+        - name: parent
+          field: if $$IsEqual:$Parent:$$SysName:Primary then "" else $Parent
+          type: text
+        - name: _parent
+          field: if $$IsEqual:$Parent:$$SysName:Primary then "" else $Guid:StockGroup:$Parent
+          type: text
+        - name: alias
+          field: OnlyAlias
+          type: text
+        - name: uom
+          field: BaseUnits
+          type: text
+        - name: _uom
+          field: $Guid:Unit:$BaseUnits
+          type: text
+        - name: opening_balance
+          field: $$StringFindAndReplace:($$Number:$$String:$OpeningBalance):"(-)":"-"
+          type: number
+        - name: opening_rate
+          field: OpeningRate
+          type: rate
+        - name: opening_value
+          field: OpeningValue
+          type: amount
+        - name: gst_nature_of_goods
+          field: if ($$IsEqual:$GstApplicable:($$SysName:Applicable) AND NOT $$IsEmpty:$GstDetails[Last].Natureofgoods) then $GstDetails[Last].Natureofgoods else ""
+          type: text
+        - name: gst_hsn_code
+          field: if ($$IsEqual:$GstApplicable:($$SysName:Applicable) AND NOT $$IsEmpty:$GstDetails[Last].Hsncode) then $GstDetails[Last].Hsncode else ""
+          type: text
+        - name: gst_taxability
+          field: if ($$IsEqual:$GstApplicable:($$SysName:Applicable) AND NOT $$IsEmpty:$GstDetails[Last].Taxability) then $GstDetails[Last].Taxability else ""
+          type: text

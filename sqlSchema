@@ -1,0 +1,84 @@
+	
+    create database firstdb;
+	use firstdb;
+	create table userdetails(
+	userid int NOT NULL AUTO_INCREMENT primary Key,
+	username varchar(100) unique ,
+	userpass varchar(50)
+	);
+
+	create table receipt(
+	 invid int Not null auto_increment Primary Key,
+	partyName varchar(100),
+    receiptNo varchar(60),
+	amount int,
+	date date,
+	mode varchar(50),
+	executive varchar(50),
+	username varchar(100)
+	);
+
+   
+	create table salesorder(
+	invid int Not Null auto_increment Primary Key,
+	orderNo varchar(50),
+	partyname varchar(100),
+	date date,
+	executive varchar(60),
+    username varchar(100),
+	partNo varchar(100),
+	stockname varchar(100),
+	quantity int,
+	itemno int
+	);
+    
+     create table voucher(
+    vchid int Not Null auto_increment primary Key,
+    voucherNo varchar(50),
+    date date,
+    vouchertype varchar(50),
+    partyname varchar(100),
+    executive varchar(50),
+	username varchar(100)
+    );
+    
+	create table ledgerlist(
+    ledid int Not Null auto_increment primary Key,
+   	username varchar(100),
+	name varchar(100)
+
+	);
+
+	create table stocklist(
+    stkid int Not Null auto_increment primary Key,
+   	username varchar(100),
+	partno varchar(100),
+	name varchar(100)
+
+	);
+
+	create table cclist(
+    ccid int Not Null auto_increment primary Key,
+   	username varchar(100),
+	name varchar(100)
+
+	);
+
+    use firstdb;
+    insert into userdetails(username,userpass) values ('test','test');
+	insert into userdetails(username,userpass) values ('SriPadmavathyAgency','SPA1234');
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
